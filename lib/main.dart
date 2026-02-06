@@ -1,24 +1,27 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:fatema_mind_glow/routes/route_path.dart';
+import 'package:fatema_mind_glow/utils/page_transitions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/main.dart';
 
 import 'dependency/binding.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
+  
   Dependency.init();
- runApp(const MyApp());
- //  runApp(
- //    DevicePreview(
- //      enabled: true, // <-- TURN ON DEVICE PREVIEW
- //      builder: (context) => const MyApp(),
- //     ),
- //  );
+  
+  runApp(const MyApp());
+  
+  //  runApp(
+  //    DevicePreview(
+  //      enabled: true, // <-- TURN ON DEVICE PREVIEW
+  //      builder: (context) => const MyApp(),
+  //     ),
+  //  );
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -59,6 +62,15 @@ class MyApp extends StatelessWidget {
     ),
     scaffoldBackgroundColor: Colors.white,
     textTheme: GoogleFonts.poppinsTextTheme(), // Default font: Poppins
-    // Alternatively use: GoogleFonts.interTextTheme() for Inter as default
+    // Custom page transitions to eliminate white flick during navigation
+    pageTransitionsTheme: PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: NoTransitionPageTransitionsBuilder(),
+        TargetPlatform.iOS: NoTransitionPageTransitionsBuilder(),
+        TargetPlatform.windows: NoTransitionPageTransitionsBuilder(),
+        TargetPlatform.macOS: NoTransitionPageTransitionsBuilder(),
+        TargetPlatform.linux: NoTransitionPageTransitionsBuilder(),
+      },
+    ),
   );
 }

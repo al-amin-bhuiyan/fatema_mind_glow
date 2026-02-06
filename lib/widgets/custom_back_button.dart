@@ -1,7 +1,6 @@
 // Create a reusable CustomBackButton widget usable across the project
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../utils/app_colors.dart';
 
@@ -24,7 +23,7 @@ class CustomBackButton extends StatelessWidget {
     this.onPressed,
     this.color = AppColors.whiteColor,
     this.backgroundColor = const Color(0x1AFFFFFF), // 10% white
-    this.size = 20,
+    this.size = 24,
     this.width = 40,
     this.height = 40,
     this.borderRadius = 20,
@@ -33,13 +32,7 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed ?? () {
-        if (Get.isRegistered<GetxController>()) {
-         context.pop();
-        } else if (Navigator.of(context).canPop()) {
-          Navigator.of(context).pop();
-        }
-      },
+      onTap: onPressed ?? () => context.pop(),
       child: Container(
         width: width.w,
         height: height.h,

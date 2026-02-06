@@ -99,7 +99,7 @@ class LogoutDialog extends StatelessWidget {
                           Text(
                             'Log Out',
                             style: AppFonts.poppinsRegular(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               height: 1,
                             ),

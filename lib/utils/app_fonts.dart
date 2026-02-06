@@ -358,6 +358,84 @@ class AppFonts {
         letterSpacing: letterSpacing,
       );
 
+  // ==================== MANROPE FONT FAMILY ====================
+
+  /// Manrope Regular (weight: 400)
+  static TextStyle manropeRegular({
+    double fontSize = 14,
+    Color? color,
+    double? height,
+    FontStyle? fontStyle,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) =>
+      GoogleFonts.manrope(
+        fontSize: fontSize.sp,
+        fontWeight: FontWeight.w400,
+        color: color,
+        height: height,
+        fontStyle: fontStyle,
+        decoration: decoration,
+        letterSpacing: letterSpacing,
+      );
+
+  /// Manrope Medium (weight: 500)
+  static TextStyle manropeMedium({
+    double fontSize = 14,
+    Color? color,
+    double? height,
+    FontStyle? fontStyle,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) =>
+      GoogleFonts.manrope(
+        fontSize: fontSize.sp,
+        fontWeight: FontWeight.w500,
+        color: color,
+        height: height,
+        fontStyle: fontStyle,
+        decoration: decoration,
+        letterSpacing: letterSpacing,
+      );
+
+  /// Manrope SemiBold (weight: 600)
+  static TextStyle manropeSemiBold({
+    double fontSize = 14,
+    Color? color,
+    double? height,
+    FontStyle? fontStyle,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) =>
+      GoogleFonts.manrope(
+        fontSize: fontSize.sp,
+        fontWeight: FontWeight.w600,
+        color: color,
+        height: height,
+        fontStyle: fontStyle,
+        decoration: decoration,
+        letterSpacing: letterSpacing,
+      );
+
+  /// Manrope Bold (weight: 700)
+  static TextStyle manropeBold({
+    double fontSize = 14,
+    Color? color,
+    double? height,
+    FontStyle? fontStyle,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) =>
+      GoogleFonts.manrope(
+        fontSize: fontSize.sp,
+        fontWeight: FontWeight.w700,
+        color: color,
+        height: height,
+        fontStyle: fontStyle,
+        decoration: decoration,
+        letterSpacing: letterSpacing,
+      );
+
   // ==================== CONVENIENCE METHODS ====================
 
   /// Get Poppins TextTheme for the entire app
@@ -365,4 +443,7 @@ class AppFonts {
 
   /// Get Inter TextTheme for the entire app
   static TextTheme interTextTheme() => GoogleFonts.interTextTheme();
+  
+  /// Get Manrope TextTheme for the entire app
+  static TextTheme manropeTextTheme() => GoogleFonts.manropeTextTheme();
 }

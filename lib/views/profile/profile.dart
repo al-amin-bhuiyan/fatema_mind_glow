@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 26.w),
                     child: Column(
                       children: [
-                        SizedBox(height: 16.h),
+                      //  SizedBox(height: 16.h),
                         
                         // Profile Header
                         _buildProfileHeader(controller),
@@ -81,10 +81,10 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () => controller.goBack(context),
             color: Colors.black,
             backgroundColor: Colors.black.withValues(alpha: 0.10),
-            size: 18,
-            width: 30,
-            height: 30,
-            borderRadius: 100,
+            size: 24,
+            width: 30.w,
+            height: 30.h,
+            borderRadius: 100.r,
           ),
 
           Expanded(
@@ -93,7 +93,7 @@ class ProfileScreen extends StatelessWidget {
                 'Profile',
                 textAlign: TextAlign.center,
                 style: AppFonts.poppinsSemiBold(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   color: Colors.black,
                 ),
               ),
@@ -144,7 +144,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   controller.userName.value,
                   style: AppFonts.poppinsMedium(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     color: const Color(0xFF1E1E1E),
                   ),
                 ),
@@ -152,7 +152,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   controller.userEmail.value,
                   style: AppFonts.poppinsRegular(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     color: const Color(0x991E1E1E),
                     height: 1,
                   ),
@@ -252,9 +252,10 @@ class ProfileScreen extends StatelessWidget {
   }) {
     return Column(
       children: [
-        GestureDetector(
+        InkWell(
           onTap: onTap,
-          child: Container(
+          borderRadius: BorderRadius.circular(12.r),
+          child: Padding(
             padding: EdgeInsets.all(12.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -284,7 +285,7 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       title,
                       style: AppFonts.poppinsMedium(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: const Color(0xFF1E1E1E),
                         height: 1,
                       ),
@@ -328,7 +329,7 @@ class ProfileScreen extends StatelessWidget {
             'Log Out',
             textAlign: TextAlign.center,
             style: AppFonts.poppinsMedium(
-              fontSize: 16,
+              fontSize: 16.sp,
               color: Colors.white,
             ),
           ),

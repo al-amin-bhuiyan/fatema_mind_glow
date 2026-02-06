@@ -93,8 +93,8 @@ class LoginScreen extends StatelessWidget {
                       padding: EdgeInsets.all(12.w),
                       child: SvgPicture.asset(
                         CustomAssets.sign_icon,
-                        width: 20.w,
-                        height: 20.h,
+                        width: 16.w,
+                        height: 16.h,
                         colorFilter: ColorFilter.mode(
                           controller.isEmailValid.value
                               ? Colors.green
@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.r),
                       borderSide: const BorderSide(
-                        width: 1.5,
+                        width: 1,
                         color: Color(0xFF80869A),
                       ),
                     ),
@@ -167,7 +167,7 @@ class LoginScreen extends StatelessWidget {
                             ? Icons.visibility_outlined
                             :  Icons.visibility_off_outlined,
                         color: Color(0xFF80869A),
-                        size: 20.w,
+                        size: 25.w,
                       ),
                       onPressed: controller.togglePasswordVisibility,
                     ),
@@ -306,7 +306,7 @@ class LoginScreen extends StatelessWidget {
                       child: _SocialButton(
                         label: 'Google',
                         iconPath: CustomAssets.google,
-                        onPressed: controller.signInWithGoogle,
+                        onPressed: () => controller.signInWithGoogle(context),
                       ),
                     ),
                     
@@ -317,7 +317,7 @@ class LoginScreen extends StatelessWidget {
                       child: _SocialButton(
                         label: 'Apple',
                         iconPath: CustomAssets.apple,
-                        onPressed: controller.signInWithApple,
+                        onPressed: () => controller.signInWithApple(context),
                       ),
                     ),
                   ],

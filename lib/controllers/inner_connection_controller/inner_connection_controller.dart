@@ -102,11 +102,11 @@ class InnerConnectionController extends GetxController {
   ];
 
   /// Navigation methods
-  void nextPage() {
+  void nextPage({VoidCallback? onComplete}) {
     if (currentPage.value < totalPages - 1) {
       currentPage.value++;
     } else {
-      completeQuestionnaire();
+      completeQuestionnaire(onComplete: onComplete);
     }
   }
 
@@ -199,7 +199,7 @@ class InnerConnectionController extends GetxController {
   }
 
   /// Complete questionnaire
-  void completeQuestionnaire() {
+  void completeQuestionnaire({VoidCallback? onComplete}) {
     print('====== Inner Connection Completed! ======');
     print('Full Name: ${selectedFullName.value}');
     print('Pronoun: ${selectedPronoun.value}');
@@ -212,6 +212,7 @@ class InnerConnectionController extends GetxController {
     print('Attention Area: ${selectedAttentionArea.value}');
     print('=========================================');
 
+    // Show success message
     Get.snackbar(
       'Success',
       'Inner connection questionnaire completed!',
@@ -222,7 +223,13 @@ class InnerConnectionController extends GetxController {
     );
 
     // TODO: Save data to database/storage
-    // TODO: Navigate to home or next screen
+    
+    // Navigate to home screen after a short delay
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (onComplete != null) {
+        onComplete();
+      }
+    });
   }
 
   /// Reset all selections

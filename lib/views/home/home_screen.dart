@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 04.w), // Spacer for centering
+          SizedBox(width: 20.w), // Spacer for centering
           Text(
             'Home',
             textAlign: TextAlign.center,
@@ -160,9 +160,15 @@ class HomeScreen extends StatelessWidget {
         ),
         shadows: [
           BoxShadow(
-            color: const Color(0x16FFBF00),
-            blurRadius: 1,
-            offset: const Offset(0, 0),
+            color: const Color(0x1A896D16),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+            spreadRadius: 1,
+          ),
+          BoxShadow(
+            color: const Color(0x0D896D16),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
             spreadRadius: 0,
           ),
         ],
@@ -207,9 +213,15 @@ class HomeScreen extends StatelessWidget {
         ),
         shadows: [
           BoxShadow(
-            color: const Color(0x16FFBF00),
-            blurRadius: 1,
-            offset: const Offset(0, 0),
+            color: const Color(0x1A896D16),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+            spreadRadius: 1,
+          ),
+          BoxShadow(
+            color: const Color(0x0D896D16),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
             spreadRadius: 0,
           ),
         ],
@@ -262,6 +274,20 @@ class HomeScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
         ),
+        shadows: [
+          BoxShadow(
+            color: const Color(0x1A896D16),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+            spreadRadius: 1,
+          ),
+          BoxShadow(
+            color: const Color(0x0D896D16),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+            spreadRadius: 0,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

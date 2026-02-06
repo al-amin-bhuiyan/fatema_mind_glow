@@ -111,10 +111,10 @@ class EditProfileScreen extends StatelessWidget {
             onPressed: () => controller.goBack(context),
             color: Colors.black,
             backgroundColor: Colors.black.withValues(alpha: 0.10),
-            size: 18,
-            width: 30,
-            height: 30,
-            borderRadius: 100,
+            size: 24.sp,
+            width: 30.w,
+            height: 30.h,
+            borderRadius: 100.r,
           ),
 
           Expanded(
@@ -123,7 +123,7 @@ class EditProfileScreen extends StatelessWidget {
                 'Profile',
                 textAlign: TextAlign.center,
                 style: AppFonts.poppinsSemiBold(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   color: Colors.black,
                 ),
               ),
@@ -275,7 +275,7 @@ class EditProfileScreen extends StatelessWidget {
             Text(
               'Change Email',
               style: AppFonts.poppinsRegular(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: Colors.black.withValues(alpha: 0.6),
               ),
             ),
@@ -300,7 +300,7 @@ class EditProfileScreen extends StatelessWidget {
         width: double.infinity,
         height: 50.h,
         textStyle: AppFonts.poppinsSemiBold(
-          fontSize: 16,
+          fontSize: 16.sp,
           color: Colors.white,
         ),
       ),

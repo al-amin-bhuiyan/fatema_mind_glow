@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 /// OTP Screen Controller - Manages OTP verification screen state and logic
 class OtpScreenController extends GetxController {
@@ -82,7 +84,7 @@ class OtpScreenController extends GetxController {
   }
 
   /// Verify OTP code
-  Future<void> verifyCode() async {
+  Future<void> verifyCode(BuildContext context) async {
     final otpCode = getOtpCode();
     
     if (otpCode.length != 6) {
@@ -110,8 +112,8 @@ class OtpScreenController extends GetxController {
         colorText: Colors.white,
       );
 
-      // Navigate to next screen (e.g., new password screen or home)
-      // context.go(AppPath.home);
+      // Navigate to home page
+      context.pushReplacementNamed('home');
 
     } catch (e) {
       Get.snackbar(
@@ -212,6 +214,96 @@ class OtpScreenController extends GetxController {
           otp5FocusNode.requestFocus();
           break;
       }
+    }
+  }
+  
+  /// Handle paste from clipboard manually
+  Future<void> handlePasteFromClipboard(BuildContext context) async {
+    try {
+      final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+      if (clipboardData != null && clipboardData.text != null) {
+        final pastedText = clipboardData.text!;
+        _handlePaste(pastedText, context);
+      }
+    } catch (e) {
+      // Clipboard error
+      Get.snackbar(
+        'Error',
+        'Failed to paste from clipboard',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+  
+  /// Handle pasted text from TextField (called when user pastes directly into field)
+  void handlePastedText(String pastedText, int fieldIndex, BuildContext context) {
+    _handlePaste(pastedText, context);
+  }
+  
+  /// Handle paste event - distribute digits across all fields
+  void _handlePaste(String pastedText, BuildContext context) {
+    // Remove any non-digit characters
+    final digits = pastedText.replaceAll(RegExp(r'\D'), '');
+    
+    if (digits.isEmpty) return;
+    
+    // Check if more than 6 digits
+    if (digits.length > 6) {
+      toastification.show(
+        context: context,
+        type: ToastificationType.warning,
+        style: ToastificationStyle.flat,
+        title: const Text('Invalid OTP'),
+        description: const Text('OTP should not be more than 6 digits'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.warning_amber_rounded, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
+      );
+      return;
+    }
+    
+    // Get all controllers in order
+    final controllers = [
+      otp1Controller,
+      otp2Controller,
+      otp3Controller,
+      otp4Controller,
+      otp5Controller,
+      otp6Controller,
+    ];
+    
+    // Clear all fields first
+    for (var ctrl in controllers) {
+      ctrl.clear();
+    }
+    
+    // Distribute digits starting from the first field
+    final numDigits = digits.length;
+    for (int i = 0; i < numDigits; i++) {
+      controllers[i].text = digits[i];
+    }
+    
+    // Focus on the next empty field or unfocus if all filled
+    if (numDigits >= 6) {
+      otp6FocusNode.unfocus();
+    } else {
+      final focusNodes = [
+        otp1FocusNode,
+        otp2FocusNode,
+        otp3FocusNode,
+        otp4FocusNode,
+        otp5FocusNode,
+        otp6FocusNode,
+      ];
+      focusNodes[numDigits].requestFocus();
     }
   }
 

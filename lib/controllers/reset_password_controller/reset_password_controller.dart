@@ -9,7 +9,7 @@ class ResetPasswordController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   // Text editing controllers
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController(text: 'md@gmail.com');
 
   // Observable states
   final RxBool isEmailValid = false.obs;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 import '../../routes/app_path.dart';
 
 /// Login Controller - Manages login screen state and logic
@@ -94,18 +95,45 @@ class LoginController extends GetxController {
       // TODO: Implement actual sign-in logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulating API call
       
+      // Show success toast
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        title: const Text('Success'),
+        description: const Text('Login successful!'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
+      );
+      
       // Navigate to inner connection page after successful login
       if (context.mounted) {
         context.push(AppPath.home);
       }
       
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Login failed: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        title: const Text('Error'),
+        description: Text('Login failed: ${e.toString()}'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 3),
         backgroundColor: Colors.red,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
     } finally {
       isLoading.value = false;
@@ -113,28 +141,46 @@ class LoginController extends GetxController {
   }
 
   /// Sign in with Google
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle(BuildContext context) async {
     try {
       isLoading.value = true;
       
       // TODO: Implement Google Sign-in logic
       await Future.delayed(const Duration(seconds: 2));
       
-      Get.snackbar(
-        'Success',
-        'Google sign-in successful!',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        title: const Text('Success'),
+        description: const Text('Google sign-in successful!'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
         backgroundColor: Colors.green,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
       
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Google sign-in failed: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        title: const Text('Error'),
+        description: Text('Google sign-in failed: ${e.toString()}'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 3),
         backgroundColor: Colors.red,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
     } finally {
       isLoading.value = false;
@@ -142,28 +188,46 @@ class LoginController extends GetxController {
   }
 
   /// Sign in with Apple
-  Future<void> signInWithApple() async {
+  Future<void> signInWithApple(BuildContext context) async {
     try {
       isLoading.value = true;
       
       // TODO: Implement Apple Sign-in logic
       await Future.delayed(const Duration(seconds: 2));
       
-      Get.snackbar(
-        'Success',
-        'Apple sign-in successful!',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        title: const Text('Success'),
+        description: const Text('Apple sign-in successful!'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
         backgroundColor: Colors.green,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
       
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Apple sign-in failed: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        title: const Text('Error'),
+        description: Text('Apple sign-in failed: ${e.toString()}'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 3),
         backgroundColor: Colors.red,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
     } finally {
       isLoading.value = false;

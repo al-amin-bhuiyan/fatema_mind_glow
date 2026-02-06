@@ -81,7 +81,7 @@ class ReflectScreen extends StatelessWidget {
               child: Icon(
                 Icons.arrow_back,
                 color: Colors.black,
-                size: 18.sp,
+                size: 24.sp,
               ),
             ),
           ),
@@ -187,7 +187,7 @@ class ReflectScreen extends StatelessWidget {
               child: Text(
                 message.text,
                 style: AppFonts.poppinsRegular(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: Colors.white,
                   height: 1.4,
                 ),
@@ -236,13 +236,13 @@ class ReflectScreen extends StatelessWidget {
                     child: TextField(
                       controller: controller.messageController,
                       style: AppFonts.poppinsRegular(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         color: Colors.black.withValues(alpha: 0.60),
                       ),
                       decoration: InputDecoration(
                         hintText: 'I like working on the',
                         hintStyle: AppFonts.poppinsRegular(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: Colors.black.withValues(alpha: 0.60),
                         ),
                         border: InputBorder.none,

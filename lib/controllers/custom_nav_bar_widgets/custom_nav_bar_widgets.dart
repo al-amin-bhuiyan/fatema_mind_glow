@@ -4,53 +4,61 @@ import 'package:go_router/go_router.dart';
 import '../../routes/app_path.dart';
 
 /// Controller for Navigation Bar - handles bottom navigation
+/// Uses OOP principles with clean separation of concerns
 class CustomNavBarController extends GetxController {
   // Observable for the current selected index
   var selectedIndex = 0.obs;
 
-  /// Method to change the selected index and navigate
-  void changeIndex(int index, BuildContext context) {
-    selectedIndex.value = index;
+  // Track if navigation is in progress to prevent white flick
+  var isNavigating = false.obs;
 
-    // Navigate based on index
-    switch (index) {
-      case 0:
-        context.go(AppPath.home);
-        break;
-      case 1:
-        context.go(AppPath.reflect);
-        break;
-      case 2:
-        // Journey page - add route when available
-        // context.go(AppPath.journey);
-        break;
-      case 3:
-        // Inspire page - add route when available
-        // context.go(AppPath.inspire);
-        break;
-      case 4:
-        // Inner Learning page - add route when available
-        // context.go(AppPath.innerLearning);
-        break;
-    }
+  /// Method to change the selected index and navigate
+  /// Uses custom transition to eliminate white flick
+  void changeIndex(int index, BuildContext context) {
+    // Prevent multiple navigation calls
+    if (isNavigating.value) return;
+    
+    // Don't navigate if already on the same page
+    if (selectedIndex.value == index) return;
+
+    selectedIndex.value = index;
+    isNavigating.value = true;
+
+    // Use go instead of push to avoid stacking pages
+    // This prevents white flick by replacing the route
+    final targetRoute = _getRouteForIndex(index);
+    
+    // Navigate with no animation to prevent white flick
+    context.go(targetRoute);
+    
+    // Reset navigation flag after a short delay
+    Future.delayed(const Duration(milliseconds: 100), () {
+      isNavigating.value = false;
+    });
   }
 
-  /// Method to get the current route based on index
-  String getCurrentRoute() {
-    switch (selectedIndex.value) {
+  /// Get route path for given index
+  /// Private method following OOP encapsulation
+  String _getRouteForIndex(int index) {
+    switch (index) {
       case 0:
         return AppPath.home;
       case 1:
         return AppPath.reflect;
       case 2:
-        return '/journey'; // Add to AppPath when available
+        return AppPath.journey;
       case 3:
-        return '/inspire'; // Add to AppPath when available
+        return AppPath.inspire;
       case 4:
-        return '/inner-learning'; // Add to AppPath when available
+        return AppPath.innerLearning;
       default:
         return AppPath.home;
     }
+  }
+
+  /// Method to get the current route based on index
+  String getCurrentRoute() {
+    return _getRouteForIndex(selectedIndex.value);
   }
 
   /// Check if a specific tab is selected

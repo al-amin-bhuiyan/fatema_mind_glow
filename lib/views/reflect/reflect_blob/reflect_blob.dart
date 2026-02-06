@@ -1,7 +1,9 @@
+import 'package:fatema_mind_glow/routes/app_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wave_blob/wave_blob.dart';
 import '../../../controllers/reflect_controller/reflect_controller.dart';
 import '../../../utils/app_colors.dart';
@@ -95,7 +97,7 @@ class ReflectBlobScreen extends StatelessWidget {
               child: Icon(
                 Icons.arrow_back,
                 color: Colors.black,
-                size: 18.sp,
+                size: 24.sp,
               ),
             ),
           ),
@@ -299,13 +301,13 @@ class ReflectBlobScreen extends StatelessWidget {
                     child: TextField(
                       controller: controller.messageController,
                       style: AppFonts.poppinsRegular(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         color: Colors.black.withValues(alpha: 0.60),
                       ),
                       decoration: InputDecoration(
                         hintText: 'I like working on the',
                         hintStyle: AppFonts.poppinsRegular(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: Colors.black.withValues(alpha: 0.60),
                         ),
                         border: InputBorder.none,
@@ -314,7 +316,12 @@ class ReflectBlobScreen extends StatelessWidget {
                       ),
                       maxLines: null,
                       textInputAction: TextInputAction.send,
-                      onSubmitted: (_) => controller.sendMessage(),
+                      onSubmitted: (_) {
+                        if (controller.messageController.text.trim().isNotEmpty) {
+                          controller.sendMessage();
+                          context.push('/reflect');
+                        }
+                      },
                     ),
                   ),
 
@@ -322,7 +329,14 @@ class ReflectBlobScreen extends StatelessWidget {
 
                   // Send Button inside text field
                   GestureDetector(
-                    onTap: () => controller.sendMessage(),
+                    onTap: () {
+                      // Send message and navigate to reflect screen
+                      if (controller.messageController.text.trim().isNotEmpty) {
+                        controller.sendMessage();
+                        // Navigate to reflect screen
+                        context.push(AppPath.reflect);
+                      }
+                    },
                     child: SvgPicture.asset(
                       CustomAssets.send_icon,
                       width: 24.w,

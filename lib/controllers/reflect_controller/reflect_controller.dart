@@ -99,7 +99,8 @@ class ReflectController extends GetxController {
 
   /// Toggle voice recording
   void toggleRecording(BuildContext context) {
- context.push(AppPath.reflectvoice);
+ //context.push(AppPath.reflectvoice);
+
   }
 
   /// Start voice recording

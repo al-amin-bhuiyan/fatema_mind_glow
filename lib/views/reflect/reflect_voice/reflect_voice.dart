@@ -77,7 +77,7 @@ class ReflectVoiceScreen extends StatelessWidget {
               child: Icon(
                 Icons.arrow_back,
                 color: Colors.black,
-                size: 18.sp,
+                size: 24.sp,
               ),
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:fatema_mind_glow/utils/app_colors.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,68 +18,71 @@ class CustomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 96.h,
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h, bottom: 10.h),
-      decoration: BoxDecoration(
-        color: Color(0xFFEBDED8).withValues(alpha: 0.7),
-        border: Border(
-          top: BorderSide(
-            color:Colors.white10,
-            width: 1.0,
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+          width: double.infinity,
+          height: 96.h,
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h, bottom: 10.h),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF3E8E3).withValues(alpha: 0.7),
+            border: const Border(
+              top: BorderSide(
+                color: Colors.white10,
+                width: 1.0,
+              ),
+            ),
           ),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Navigation items row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              _NavBarItem(
-                icon: CustomAssets.home_nav_bar,
-                hoverIcon: CustomAssets.home_hovar_nav_bar,
-                label: 'Home',
-                index: 0,
-                controller: controller,
-              ),
-              _NavBarItem(
-                icon: CustomAssets.reflect_nav_bar,
-                hoverIcon: CustomAssets.reflect_hovar_nav_bar,
-                label: 'Reflect',
-                index: 1,
-                controller: controller,
-              ),
-              _NavBarItem(
-                icon: CustomAssets.journey_nav_bar,
-                hoverIcon: CustomAssets.journey_hovar_nav_bar,
-                label: 'Journey',
-                index: 2,
-                controller: controller,
-              ),
-              _NavBarItem(
-                icon: CustomAssets.inspire_nav_bar,
-                hoverIcon: CustomAssets.inspire_hovar_nav_bar,
-                label: 'Inspire',
-                index: 3,
-                controller: controller,
-              ),
-              _NavBarItem(
-                icon: CustomAssets.innerlearing_nav_bar,
-                hoverIcon: CustomAssets.innerlearing_hovar_nav_bar,
-                label: 'Inner Learning',
-                index: 4,
-                controller: controller,
+              // Navigation items row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // ...existing code...
+                  _NavBarItem(
+                    icon: CustomAssets.home_nav_bar,
+                    hoverIcon: CustomAssets.home_hovar_nav_bar,
+                    label: 'Home',
+                    index: 0,
+                    controller: controller,
+                  ),
+                  _NavBarItem(
+                    icon: CustomAssets.reflect_nav_bar,
+                    hoverIcon: CustomAssets.reflect_hovar_nav_bar,
+                    label: 'Reflect',
+                    index: 1,
+                    controller: controller,
+                  ),
+                  _NavBarItem(
+                    icon: CustomAssets.journey_nav_bar,
+                    hoverIcon: CustomAssets.journey_hovar_nav_bar,
+                    label: 'Journey',
+                    index: 2,
+                    controller: controller,
+                  ),
+                  _NavBarItem(
+                    icon: CustomAssets.inspire_nav_bar,
+                    hoverIcon: CustomAssets.inspire_hovar_nav_bar,
+                    label: 'Inspire',
+                    index: 3,
+                    controller: controller,
+                  ),
+                  _NavBarItem(
+                    icon: CustomAssets.innerlearing_nav_bar,
+                    hoverIcon: CustomAssets.innerlearing_hovar_nav_bar,
+                    label: 'Inner Learning',
+                    index: 4,
+                    controller: controller,
+                  ),
+                ],
               ),
             ],
           ),
-          SizedBox(height: 10.h),
-          // Bottom indicator bar
-
-        ],
+        ),
       ),
     );
   }
@@ -149,22 +152,12 @@ class _NavBarItem extends StatelessWidget {
                                         width: 24.w,
                                         height: 24.h,
                                         fit: BoxFit.contain,
-                                        errorBuilder: (context, error, stackTrace) => Icon(
-                                          Icons.error_outline,
-                                          size: 24.w,
-                                          color: Colors.red,
-                                        ),
                                       )
                                     : SvgPicture.asset(
                                         hoverIcon,
                                         width: 24.w,
                                         height: 24.h,
                                         fit: BoxFit.contain,
-                                        placeholderBuilder: (context) => Icon(
-                                          Icons.error_outline,
-                                          size: 24.w,
-                                          color: Colors.red,
-                                        ),
                                       ),
                               ),
                             ),
@@ -176,11 +169,6 @@ class _NavBarItem extends StatelessWidget {
                         width: 24.w,
                         height: 24.h,
                         fit: BoxFit.contain,
-                        placeholderBuilder: (context) => Icon(
-                          Icons.error_outline,
-                          size: 24.w,
-                          color: Colors.grey,
-                        ),
                       ),
                 SizedBox(height: 4.h),
                 // Label with overflow handling
@@ -192,8 +180,8 @@ class _NavBarItem extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: isSelected 
-                          ? const Color(0xFF1E1E1E) 
+                      color: isSelected
+                          ? const Color(0xFF1E1E1E)
                           : const Color(0xFF4F4F4F),
                       fontSize: 11.sp,
                       fontFamily: 'Inter',

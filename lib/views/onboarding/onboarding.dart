@@ -61,6 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -181,22 +182,22 @@ class _OnboardingPage extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        padding: EdgeInsets.symmetric(horizontal: 22.w),
         child: Column(
           children: [
             SizedBox(height: 40.h),
             // Image
             Expanded(
               child: Container(
-                width: double.infinity,
-            
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.r),
                   child: Image.asset(
                     data.image,
-                    fit: BoxFit.cover
-                    ,
-                    height: 442.h,
+                    fit: BoxFit.cover,
                     width: double.infinity,
                   ),
                 ),

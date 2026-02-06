@@ -17,44 +17,45 @@ class SubscriptionScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(CustomAssets.backgroundimage),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // App Bar
-              _buildAppBar(context, controller),
-              
-              // Scrollable Content
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 26.w),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 16.h),
-                        
-                        // Free Plan Card
-                        _buildFreePlanCard(),
-                        
-                        SizedBox(height: 16.h),
-                        
-                        // Inner Plan Card
-                        _buildInnerPlanCard(controller, context),
-                        
-                        SizedBox(height: 24.h),
-                      ],
-                    ),
+        child: Stack(
+          children: [
+            // Scrollable Content
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 114.h,
+              bottom: 0,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 26.w),
+                  child: Column(
+                    children: [
+                      // Free Plan Card
+                      _buildFreePlanCard(),
+                      
+                      SizedBox(height: 16.h),
+                      
+                      // Inner Plan Card
+                      _buildInnerPlanCard(controller, context),
+                      
+                      SizedBox(height: 24.h),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+
+            // App Bar (Fixed at top)
+            _buildAppBar(context, controller),
+          ],
         ),
       ),
     );
@@ -62,44 +63,73 @@ class SubscriptionScreen extends StatelessWidget {
 
   /// Build App Bar
   Widget _buildAppBar(BuildContext context, SubscriptionController controller) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 26.w, vertical: 16.h),
-      decoration: BoxDecoration(color: const Color(0xFFFEF8F3)),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () => controller.goBack(context),
-            child: Container(
-              width: 30.w,
-              height: 30.h,
-              decoration: ShapeDecoration(
-                color: Colors.black.withValues(alpha: 0.10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.r),
+    return Positioned(
+      left: 0,
+      top: 0,
+      right: 0,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(color: const Color(0xFFFEF8F3)),
+        child: SafeArea(
+          bottom: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Status Bar Placeholder
+              SizedBox(height: 8.h),
+              
+              // App Bar Content
+              Container(
+                width: double.infinity,
+                height: 54.h,
+                padding: EdgeInsets.only(
+                  top: 8.h,
+                  left: 26.w,
+                  right: 26.w,
+                  bottom: 16.h,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => controller.goBack(context),
+                      child: Container(
+                        width: 30.w,
+                        height: 30.h,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: ShapeDecoration(
+                          color: Colors.black.withValues(alpha: 0.10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.r),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 24.sp,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Subscription',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30.w),
+                  ],
                 ),
               ),
-              child: Icon(
-                Icons.arrow_back,
-                size: 18.sp,
-                color: Colors.black,
-              ),
-            ),
+            ],
           ),
-          Expanded(
-            child: Text(
-              'Subscription',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.sp,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          SizedBox(width: 30.w),
-        ],
+        ),
       ),
     );
   }
@@ -110,17 +140,41 @@ class SubscriptionScreen extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(CustomAssets.mindglow_free_background),
-          fit: BoxFit.cover,
-        ),
+        color: const Color(0xFFFDF7EA),
         borderRadius: BorderRadius.circular(8.r),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x16FFBF00),
+            blurRadius: 1,
+            offset: Offset(0, 0),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x0CFFBF00),
+            blurRadius: 1,
+            offset: Offset(0, 0),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x02FFBF00),
+            blurRadius: 1,
+            offset: Offset(0, 0),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x00FFBF00),
+            blurRadius: 1,
+            offset: Offset(0, 0),
+            spreadRadius: 0,
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Title and Price Section
           Container(
             width: double.infinity,
             child: Column(
@@ -155,6 +209,8 @@ class SubscriptionScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 24.h),
+          
+          // Features Section
           Container(
             width: double.infinity,
             child: Column(
@@ -165,9 +221,9 @@ class SubscriptionScreen extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.only(bottom: 16.h),
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1, color: Colors.white),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1, color: Colors.grey),
                     ),
                   ),
                   child: Column(
@@ -216,14 +272,24 @@ class SubscriptionScreen extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage(CustomAssets.mindglow_inner_background),
           fit: BoxFit.cover,
+          alignment: Alignment.center,
         ),
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(10.r),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x28A5A5A5),
+            blurRadius: 50,
+            offset: Offset(0, 1),
+            spreadRadius: 0,
+          ),
+        ],
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+       mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Title and Pricing Section
           Container(
             width: double.infinity,
             child: Column(
@@ -231,21 +297,25 @@ class SubscriptionScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'MindGlow - Inner 🍃 ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF1E1E1E),
-                    fontSize: 24.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'MindGlow - Inner 🍃',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xFF1E1E1E),
+                      fontSize: 24.sp,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 SizedBox(height: 16.h),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8.w,
+                  runSpacing: 8.h,
                   children: [
                     Text.rich(
                       TextSpan(
@@ -271,7 +341,6 @@ class SubscriptionScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: 8.w),
                     Text(
                       'or',
                       style: TextStyle(
@@ -281,7 +350,6 @@ class SubscriptionScreen extends StatelessWidget {
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    SizedBox(width: 8.w),
                     Text.rich(
                       TextSpan(
                         children: [
@@ -306,7 +374,6 @@ class SubscriptionScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: 8.w),
                     Text(
                       '(gental continuty)',
                       style: TextStyle(
@@ -322,6 +389,8 @@ class SubscriptionScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 24.h),
+          
+          // Features and Button Section
           Container(
             width: double.infinity,
             child: Column(
@@ -339,9 +408,9 @@ class SubscriptionScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.only(bottom: 16.h),
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Colors.white),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(width: 1, color: Colors.grey),
                           ),
                         ),
                         child: Column(
@@ -382,29 +451,34 @@ class SubscriptionScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30.h),
+                
+                // Continue Button
                 GestureDetector(
                   onTap: () => controller.continueWithPlan(context),
                   child: Container(
                     width: double.infinity,
-                    height: 54.h,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          CustomAssets.continue_with_mindglow_inner_button_background,
-                        ),
-                        fit: BoxFit.cover,
+                    height: 41.h,
+                    padding: EdgeInsets.all(10.w),
+                    decoration: ShapeDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment(0.00, 0.50),
+                        end: Alignment(1.00, 0.50),
+                        colors: [Color(0xFFA75711), Color(0xFFFFBD00)],
                       ),
-                      borderRadius: BorderRadius.circular(100.r),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100.r),
+                      ),
                     ),
                     child: Center(
                       child: Text(
-                        'Continue with GlowMind Inner',
+                        'Continue with MindGlow Inner',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w500,
+                          height: 1.50,
                         ),
                       ),
                     ),

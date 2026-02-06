@@ -102,13 +102,28 @@ class OtpScreen extends StatelessWidget {
                       ],
                     ),
 
+                    SizedBox(height: 16.h),
+
+                    // Paste Code Button
+                    GestureDetector(
+                      onTap: () => controller.handlePasteFromClipboard(context),
+                      child: Text(
+                        'Paste Code',
+                        style: AppFonts.poppinsSemiBold(
+                          fontSize: 14.sp,
+                          color: AppColors.googlebuttonColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+
                     SizedBox(height: 32.h),
 
                     // Verify Code Button
                     Obx(
                       () => CustomButton(
                         label: 'Verify Code >',
-                        onPressed: controller.verifyCode,
+                        onPressed: () => controller.verifyCode(context),
                         isLoading: controller.isLoading.value,
                         enabled: !controller.isLoading.value,
                         height: 54.h,
@@ -143,7 +158,7 @@ class OtpScreen extends StatelessWidget {
                       ],
                     ),
 
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.37),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.44),
 
                     // Powered by text
                     Text(
@@ -193,7 +208,6 @@ class OtpScreen extends StatelessWidget {
           focusNode: focusNode,
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
-          maxLength: 1,
           style: AppFonts.poppinsSemiBold(
             fontSize: 20.sp,
             color: const Color(0xFF1E1E1E),
@@ -205,9 +219,13 @@ class OtpScreen extends StatelessWidget {
           ),
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(1), // STRICT: Only 1 digit per field
           ],
           onChanged: (value) {
-            otpController.onOtpChanged(value, index, context);
+            // Handle single digit entry or backspace
+            if (value.length <= 1) {
+              otpController.onOtpChanged(value, index, context);
+            }
           },
         ),
       );

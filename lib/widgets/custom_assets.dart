@@ -8,7 +8,7 @@ class CustomAssets {
   static const String splashlogo ='assets/images/splash_logo.png';
   static const String buttonbackground='assets/images/button_background.png';
   static const String onBoardingImage1 = 'assets/images/on_boarding_image_1.png';
-  static const String onBoardingImage2 = 'assets/images/on_boarding  _image_2.png';
+  static const String onBoardingImage2 = 'assets/images/on_boarding_image_2.png';
   static const String onBoardingImage3 = 'assets/images/on_boarding_image_3.png';
 
   static const String mindglowlogo = 'assets/images/Mindglow.png';
@@ -80,6 +80,28 @@ class CustomAssets {
   //Reflect Blob
 
   static const String reflect_blob  ='assets/images/reflect_blob.png';
+
+
+
+  //inspire
+
+  static const String book_mark_icon_marked ='assets/icons/book_mark_icon_marked.svg';
+  static const String book_mark_icon_not_marked ='assets/icons/book_mark_icon_not_marked.svg';
+  static const String video_icon_over_the_video_thumb ='assets/icons/video_icon_over_the_video_thumb.svg';
+
+
+  static const String video_thumb_1  ='assets/images/video_thumb_1.png';
+  static const String video_thumb_2 ='assets/images/video_thumb_2.png';
+  static const String video_thumb_3 ='assets/images/video_thumb_3.png';
+  
+  
+  //realtionship_learning
+   
+  static const String background_realtionship_learning ='assets/images/background_realtionship_learning.png';
+
+
+
+
 
 
 

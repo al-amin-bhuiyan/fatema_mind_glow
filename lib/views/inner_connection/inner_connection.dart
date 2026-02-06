@@ -61,7 +61,7 @@ class InnerConnectionScreen extends StatelessWidget {
                               icon: Icon(
                                 Icons.arrow_back,
                                 color: const Color(0xFF2D2D2D),
-                                size: 20.sp,
+                                size: 24.sp,
                               ),
                               padding: EdgeInsets.zero,
                             ),
@@ -151,108 +151,120 @@ class FullNamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-         // SizedBox(height: 20.h),
-          Text(
-            "A moment to notice ",
-            style: AppFonts.poppinsMedium(
-              fontSize: 14.sp,
-              color: AppColors.blackColor,
-            ),
+      child: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height - 
+                       MediaQuery.of(context).padding.top - 
+                       MediaQuery.of(context).padding.bottom - 
+                       100.h, // Subtract header height
           ),
-          SizedBox(height: 29.h),
-          // Name Input Field with floating label
-          TextFormField(
-            controller: controller.fullNameController,
-            onChanged: (value) => controller.updateFullName(value),
-            style: AppFonts.poppinsRegular(
-              fontSize: 16.sp,
-              color: const Color(0xFF1E1E1E),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Full Name',
-              labelStyle: AppFonts.poppinsRegular(
-                fontSize: 12.sp,
-                color: const Color(0xFF80869A),
-              ),
-              hintText: 'Your Name',
-              hintStyle: AppFonts.poppinsRegular(
-                fontSize: 16.sp,
-                color: const Color(0xFFCCCCCC),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.r),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFF80869A),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.r),
-                borderSide: const BorderSide(
-                  width: 1.5,
-                  color: Color(0xFF80869A),
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.r),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Colors.red,
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.r),
-                borderSide: const BorderSide(
-                  width: 1.5,
-                  color: Colors.red,
-                ),
-              ),
-              filled: false,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 24.w,
-                vertical: 15.h,
-              ),
-            ),
-          ),
-          
-          SizedBox(height: 32.h),
-          
-          // Pronoun buttons
-          Row(
-            children: controller.pronounOptions.map((pronoun) {
-              return Obx(() {
-                final isSelected = controller.selectedPronoun.value == pronoun;
-                return Padding(
-                  padding: EdgeInsets.only(right: 12.w),
-                  child: _PronounButton(
-                    text: pronoun,
-                    isSelected: isSelected,
-                    onTap: () => controller.selectPronoun(pronoun),
+          child: IntrinsicHeight(
+            child: Column(
+              children: [
+               // SizedBox(height: 20.h),
+                Text(
+                  "A moment to notice ",
+                  style: AppFonts.poppinsMedium(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
                   ),
-                );
-              });
-            }).toList(),
-          ),
-          
-          Spacer(),
-          
-          Obx(() => CustomButton(
-                label: 'Continue >',
-                onPressed: controller.canContinue() ? controller.nextPage : null,
-                enabled: controller.canContinue(),
-              )),
-          SizedBox(height: 32.h),
-          Text(
-            'Powered by The Reflectly Method.',
-            style: AppFonts.poppinsRegular(
-              fontSize: 12.sp,
-              color: const Color(0xFF999999),
+                ),
+                SizedBox(height: 29.h),
+                // Name Input Field with floating label
+                TextFormField(
+                  controller: controller.fullNameController,
+                  onChanged: (value) => controller.updateFullName(value),
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 16.sp,
+                    color: const Color(0xFF1E1E1E),
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Full Name',
+                    labelStyle: AppFonts.poppinsRegular(
+                      fontSize: 12.sp,
+                      color: const Color(0xFF80869A),
+                    ),
+                    hintText: 'Your Name',
+                    hintStyle: AppFonts.poppinsRegular(
+                      fontSize: 16.sp,
+                      color: const Color(0xFFCCCCCC),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: Color(0xFF80869A),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                      borderSide: const BorderSide(
+                        width: 1.5,
+                        color: Color(0xFF80869A),
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: Colors.red,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                      borderSide: const BorderSide(
+                        width: 1.5,
+                        color: Colors.red,
+                      ),
+                    ),
+                    filled: false,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 24.w,
+                      vertical: 15.h,
+                    ),
+                  ),
+                ),
+                
+                SizedBox(height: 32.h),
+                
+                // Pronoun buttons
+                Row(
+                  children: controller.pronounOptions.map((pronoun) {
+                    return Obx(() {
+                      final isSelected = controller.selectedPronoun.value == pronoun;
+                      return Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: _PronounButton(
+                          text: pronoun,
+                          isSelected: isSelected,
+                          onTap: () => controller.selectPronoun(pronoun),
+                        ),
+                      );
+                    });
+                  }).toList(),
+                ),
+                
+                Spacer(),
+                
+                Obx(() => CustomButton(
+                      label: 'Continue >',
+                      onPressed: controller.canContinue() ? controller.nextPage : null,
+                      enabled: controller.canContinue(),
+                    )),
+                SizedBox(height: 32.h),
+                Text(
+                  'Powered by The Reflectly Method.',
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 12.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+              ],
             ),
           ),
-        //  SizedBox(height: 24.h),
-        ],
+        ),
       ),
     );
   }
@@ -306,7 +318,7 @@ class AgeRangePage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-       //   SizedBox(height: 24.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -361,7 +373,7 @@ class LifeSituationPage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-        //  SizedBox(height: 24.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -416,7 +428,7 @@ class LifeStagePage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-     //     SizedBox(height: 24.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -479,7 +491,7 @@ class LifeFeelingPage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-        //  SizedBox(height: 24.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -542,7 +554,7 @@ class FaithPage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-         // SizedBox(height: 24.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -605,7 +617,7 @@ class InspirationSourcePage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-         // SizedBox(height: 24.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -622,54 +634,70 @@ class AttentionAreaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-         // SizedBox(height: 20.h),
-          Text(
-            "An idea to sit with",
-            style: AppFonts.poppinsRegular(
-              fontSize: 14.sp,
-              color: AppColors.blackColor,
+      child: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height - 
+                       MediaQuery.of(context).padding.top - 
+                       MediaQuery.of(context).padding.bottom - 
+                       100.h, // Subtract header height
+          ),
+          child: IntrinsicHeight(
+            child: Column(
+              children: [
+               // SizedBox(height: 20.h),
+                Text(
+                  "An idea to sit with",
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'What would you like to give attention to today?',
+                  style: AppFonts.poppinsSemiBold(
+                    fontSize: 18.sp,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 32.h),
+                Column(
+                  children: controller.attentionAreaOptions.map((option) {
+                    return Obx(() {
+                      final isSelected = controller.selectedAttentionArea.value == option;
+                      return _OptionButton(
+                        text: option,
+                        isSelected: isSelected,
+                        onTap: () => controller.selectAttentionArea(option),
+                      );
+                    });
+                  }).toList(),
+                ),
+                Spacer(),
+                Obx(() => CustomButton(
+                      label: 'Finish',
+                      onPressed: controller.canContinue() 
+                          ? () => controller.nextPage(
+                                onComplete: () => context.go('/home'),
+                              )
+                          : null,
+                      enabled: controller.canContinue(),
+                    )),
+                SizedBox(height: 22.h),
+                Text(
+                  'Powered by The Reflectly Method.',
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 12.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+              ],
             ),
           ),
-          SizedBox(height: 10.h),
-          Text(
-            'What would you like to give attention to today?',
-            style: AppFonts.poppinsSemiBold(
-              fontSize: 18.sp,
-              color: const Color(0xFF2D2D2D),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 32.h),
-          Column(
-            children: controller.attentionAreaOptions.map((option) {
-              return Obx(() {
-                final isSelected = controller.selectedAttentionArea.value == option;
-                return _OptionButton(
-                  text: option,
-                  isSelected: isSelected,
-                  onTap: () => controller.selectAttentionArea(option),
-                );
-              });
-            }).toList(),
-          ),
-          Spacer(),
-          Obx(() => CustomButton(
-                label: 'Finish',
-                onPressed: controller.canContinue() ? controller.nextPage : null,
-                enabled: controller.canContinue(),
-              )),
-          SizedBox(height: 32.h),
-          Text(
-            'Powered by The Reflectly Method.',
-            style: AppFonts.poppinsRegular(
-              fontSize: 12.sp,
-              color: const Color(0xFF999999),
-            ),
-          ),
-      //     SizedBox(height: 24.h),
-        ],
+        ),
       ),
     );
   }

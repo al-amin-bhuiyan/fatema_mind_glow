@@ -9,6 +9,8 @@ class AppPath {
   static const String innerConnection ='/inner-connection';
   static const String home ='/home';
   static const String reflect ='/reflect';
+  static const String journey ='/journey';
+  static const String inspire ='/inspire';
   static const String profile ='/profile';
   static const String editProfile ='/edit-profile';
   static const String subscription ='/subscription';
@@ -22,4 +24,6 @@ class AppPath {
   static const String termsCondition ='/terms-condition';
   static const String reflectblob ='/reflectblob';
   static const String reflectvoice ='/reflectvoice';
+  static const String innerLearning ='/inner-learning';
+  static const String relationshipLearning ='/relationship-learning';
 }

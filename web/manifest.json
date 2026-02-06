@@ -1,11 +1,11 @@
 {
-    "name": "fatema_mind_glow",
-    "short_name": "fatema_mind_glow",
+    "name": "Mind Glow",
+    "short_name": "Mind Glow",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A mindfulness and reflection app.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

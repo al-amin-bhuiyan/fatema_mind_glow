@@ -73,7 +73,7 @@ class NotificationScreen extends StatelessWidget {
               ),
               child: Icon(
                 Icons.arrow_back,
-                size: 18.sp,
+                size: 24.sp,
                 color: Colors.black,
               ),
             ),

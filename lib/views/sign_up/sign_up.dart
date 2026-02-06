@@ -240,7 +240,7 @@ class SignUpScreen extends StatelessWidget {
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined,
                             color: const Color(0xFF999999),
-                            size: 20.w,
+                            size: 24.w,
                           ),
                           onPressed: controller.togglePasswordVisibility,
                         ),
@@ -308,7 +308,7 @@ class SignUpScreen extends StatelessWidget {
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined,
                             color: const Color(0xFF80869A),
-                            size: 20.w,
+                            size: 24.w,
                           ),
                           onPressed: controller.toggleConfirmPasswordVisibility,
                         ),
@@ -397,7 +397,7 @@ class SignUpScreen extends StatelessWidget {
                           child: _SocialButton(
                             label: 'Google',
                             iconPath: CustomAssets.google,
-                            onPressed: controller.signUpWithGoogle,
+                            onPressed: () => controller.signUpWithGoogle(context),
                           ),
                         ),
                         
@@ -408,7 +408,7 @@ class SignUpScreen extends StatelessWidget {
                           child: _SocialButton(
                             label: 'Apple',
                             iconPath: CustomAssets.apple,
-                            onPressed: controller.signUpWithApple,
+                            onPressed: () => controller.signUpWithApple(context),
                           ),
                         ),
                       ],

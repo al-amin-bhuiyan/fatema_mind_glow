@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 import '../../routes/app_path.dart';
 
 /// SignUp Controller - Manages sign up screen state and logic
@@ -9,10 +10,10 @@ class SignUpController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   // Text editing controllers
-  final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController(text: 'Mohammad Shobuj');
+  final TextEditingController emailController = TextEditingController(text: 'md@gmail.com');
+  final TextEditingController passwordController = TextEditingController(text: '123456');
+  final TextEditingController confirmPasswordController = TextEditingController(text: '123456');
 
   // Observable states
   final RxBool isPasswordVisible = false.obs;
@@ -122,18 +123,45 @@ class SignUpController extends GetxController {
       // TODO: Implement actual sign-up logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulating API call
       
+      // Show success toast
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        title: const Text('Success'),
+        description: const Text('Sign up successful!'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
+      );
+      
       // Navigate to inner connection page after successful signup
       if (context.mounted) {
         context.push(AppPath.innerConnection);
       }
       
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Sign up failed: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        title: const Text('Error'),
+        description: Text('Sign up failed: ${e.toString()}'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 3),
         backgroundColor: Colors.red,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
     } finally {
       isLoading.value = false;
@@ -141,28 +169,46 @@ class SignUpController extends GetxController {
   }
 
   /// Sign up with Google
-  Future<void> signUpWithGoogle() async {
+  Future<void> signUpWithGoogle(BuildContext context) async {
     try {
       isLoading.value = true;
       
       // TODO: Implement Google Sign-up logic
       await Future.delayed(const Duration(seconds: 2));
       
-      Get.snackbar(
-        'Success',
-        'Google sign-up successful!',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        title: const Text('Success'),
+        description: const Text('Google sign-up successful!'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
         backgroundColor: Colors.green,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
       
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Google sign-up failed: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        title: const Text('Error'),
+        description: Text('Google sign-up failed: ${e.toString()}'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 3),
         backgroundColor: Colors.red,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
     } finally {
       isLoading.value = false;
@@ -170,28 +216,46 @@ class SignUpController extends GetxController {
   }
 
   /// Sign up with Apple
-  Future<void> signUpWithApple() async {
+  Future<void> signUpWithApple(BuildContext context) async {
     try {
       isLoading.value = true;
       
       // TODO: Implement Apple Sign-up logic
       await Future.delayed(const Duration(seconds: 2));
       
-      Get.snackbar(
-        'Success',
-        'Apple sign-up successful!',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        title: const Text('Success'),
+        description: const Text('Apple sign-up successful!'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 2),
         backgroundColor: Colors.green,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
       
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Apple sign-up failed: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        title: const Text('Error'),
+        description: Text('Apple sign-up failed: ${e.toString()}'),
+        alignment: Alignment.bottomCenter,
+        autoCloseDuration: const Duration(seconds: 3),
         backgroundColor: Colors.red,
-        colorText: Colors.white,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        dragToClose: true,
       );
     } finally {
       isLoading.value = false;
