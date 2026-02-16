@@ -70,7 +70,7 @@ class ResetPasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Failed to send reset code. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

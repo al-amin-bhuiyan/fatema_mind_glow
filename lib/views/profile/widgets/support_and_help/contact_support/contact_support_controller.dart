@@ -95,7 +95,7 @@ class ContactSupportController extends GetxController {
         Get.snackbar(
           'Success',
           'Your message has been sent successfully. We\'ll respond as soon as we can.',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
           backgroundColor: const Color(0xFF4CAF50),
           colorText: Colors.white,
           duration: const Duration(seconds: 3),
@@ -112,7 +112,7 @@ class ContactSupportController extends GetxController {
         Get.snackbar(
           'Error',
           'Failed to send message. Please try again.',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
           backgroundColor: const Color(0xFFE53935),
           colorText: Colors.white,
           duration: const Duration(seconds: 3),

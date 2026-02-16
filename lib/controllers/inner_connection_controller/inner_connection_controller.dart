@@ -10,6 +10,13 @@ class InnerConnectionController extends GetxController {
   // Text editing controller for full name
   final TextEditingController fullNameController = TextEditingController();
 
+  // Custom text for "Other" options
+  final RxString customLifeSituation = ''.obs;
+  final RxString customLifeStage = ''.obs;
+  final RxString customLifeFeeling = ''.obs;
+  final RxString customFaith = ''.obs;
+  final RxString customAttentionArea = ''.obs;
+
   // User responses
   final RxString selectedFullName = ''.obs;
   final RxString selectedPronoun = ''.obs;
@@ -131,18 +138,71 @@ class InnerConnectionController extends GetxController {
 
   void selectLifeSituation(String option) {
     selectedLifeSituation.value = option;
+    if (option != 'Other') {
+      customLifeSituation.value = '';
+    }
   }
 
   void selectLifeStage(String option) {
     selectedLifeStage.value = option;
+    if (option != 'Other') {
+      customLifeStage.value = '';
+    }
   }
 
   void selectLifeFeeling(String option) {
     selectedLifeFeeling.value = option;
+    if (option != 'Other') {
+      customLifeFeeling.value = '';
+    }
   }
 
   void selectFaith(String option) {
     selectedFaith.value = option;
+    if (option != 'Other') {
+      customFaith.value = '';
+    }
+  }
+
+  /// Set custom text for "Other" options
+  void setCustomLifeSituation(String? value) {
+    if (value != null && value.isNotEmpty) {
+      customLifeSituation.value = value;
+      selectedLifeSituation.value = 'Other';
+    } else {
+      customLifeSituation.value = '';
+      selectedLifeSituation.value = '';
+    }
+  }
+
+  void setCustomLifeStage(String? value) {
+    if (value != null && value.isNotEmpty) {
+      customLifeStage.value = value;
+      selectedLifeStage.value = 'Other';
+    } else {
+      customLifeStage.value = '';
+      selectedLifeStage.value = '';
+    }
+  }
+
+  void setCustomLifeFeeling(String? value) {
+    if (value != null && value.isNotEmpty) {
+      customLifeFeeling.value = value;
+      selectedLifeFeeling.value = 'Other';
+    } else {
+      customLifeFeeling.value = '';
+      selectedLifeFeeling.value = '';
+    }
+  }
+
+  void setCustomFaith(String? value) {
+    if (value != null && value.isNotEmpty) {
+      customFaith.value = value;
+      selectedFaith.value = 'Other';
+    } else {
+      customFaith.value = '';
+      selectedFaith.value = '';
+    }
   }
 
   void selectInspirationSource(String option) {
@@ -151,6 +211,20 @@ class InnerConnectionController extends GetxController {
 
   void selectAttentionArea(String option) {
     selectedAttentionArea.value = option;
+    if (option != 'Other') {
+      customAttentionArea.value = '';
+    }
+  }
+
+  /// Set custom attention area for "Other" option
+  void setCustomAttentionArea(String? value) {
+    if (value != null && value.isNotEmpty) {
+      customAttentionArea.value = value;
+      selectedAttentionArea.value = 'Other';
+    } else {
+      customAttentionArea.value = '';
+      selectedAttentionArea.value = '';
+    }
   }
 
   /// Check if user can continue from current page
@@ -189,12 +263,22 @@ class InnerConnectionController extends GetxController {
       'fullName': selectedFullName.value,
       'pronoun': selectedPronoun.value,
       'ageRange': selectedAgeRange.value,
-      'lifeSituation': selectedLifeSituation.value,
-      'lifeStage': selectedLifeStage.value,
-      'lifeFeeling': selectedLifeFeeling.value,
-      'faith': selectedFaith.value,
+      'lifeSituation': selectedLifeSituation.value == 'Other' 
+          ? customLifeSituation.value 
+          : selectedLifeSituation.value,
+      'lifeStage': selectedLifeStage.value == 'Other' 
+          ? customLifeStage.value 
+          : selectedLifeStage.value,
+      'lifeFeeling': selectedLifeFeeling.value == 'Other' 
+          ? customLifeFeeling.value 
+          : selectedLifeFeeling.value,
+      'faith': selectedFaith.value == 'Other' 
+          ? customFaith.value 
+          : selectedFaith.value,
       'inspirationSource': selectedInspirationSource.value,
-      'attentionArea': selectedAttentionArea.value,
+      'attentionArea': selectedAttentionArea.value == 'Other' 
+          ? customAttentionArea.value 
+          : selectedAttentionArea.value,
     };
   }
 
@@ -245,6 +329,11 @@ class InnerConnectionController extends GetxController {
     selectedFaith.value = '';
     selectedInspirationSource.value = '';
     selectedAttentionArea.value = '';
+    customLifeSituation.value = '';
+    customLifeStage.value = '';
+    customLifeFeeling.value = '';
+    customFaith.value = '';
+    customAttentionArea.value = '';
   }
 
   @override

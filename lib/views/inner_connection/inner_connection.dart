@@ -7,6 +7,7 @@ import '../../controllers/inner_connection_controller/inner_connection_controlle
 import '../../utils/app_fonts.dart';
 import '../../widgets/custom_assets.dart';
 import '../../widgets/custom_button.dart';
+import 'widgets/other_option_dialog.dart';
 
 /// Inner Connection Screen - 8 pages questionnaire
 class InnerConnectionScreen extends StatelessWidget {
@@ -149,28 +150,28 @@ class FullNamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height - 
-                       MediaQuery.of(context).padding.top - 
-                       MediaQuery.of(context).padding.bottom - 
-                       100.h, // Subtract header height
-          ),
-          child: IntrinsicHeight(
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
-               // SizedBox(height: 20.h),
+                SizedBox(height: 10.h),
                 Text(
-                  "A moment to notice ",
+                  "A moment to notice",
                   style: AppFonts.poppinsMedium(
                     fontSize: 14.sp,
                     color: AppColors.blackColor,
                   ),
                 ),
-                SizedBox(height: 29.h),
+                SizedBox(height: 24.h),
                 // Name Input Field with floating label
                 TextFormField(
                   controller: controller.fullNameController,
@@ -225,9 +226,7 @@ class FullNamePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                
                 SizedBox(height: 32.h),
-                
                 // Pronoun buttons
                 Row(
                   children: controller.pronounOptions.map((pronoun) {
@@ -244,15 +243,13 @@ class FullNamePage extends StatelessWidget {
                     });
                   }).toList(),
                 ),
-                
-                Spacer(),
-                
+                const Spacer(),
                 Obx(() => CustomButton(
                       label: 'Continue >',
                       onPressed: controller.canContinue() ? controller.nextPage : null,
                       enabled: controller.canContinue(),
                     )),
-                SizedBox(height: 32.h),
+                SizedBox(height: 25.h),
                 Text(
                   'Powered by The Reflectly Method.',
                   style: AppFonts.poppinsRegular(
@@ -260,7 +257,7 @@ class FullNamePage extends StatelessWidget {
                     color: const Color(0xFF999999),
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 20.h),
               ],
             ),
           ),
@@ -306,11 +303,11 @@ class AgeRangePage extends StatelessWidget {
           ),
           Spacer(),
           Obx(() => CustomButton(
-                label: 'Continue',
+                label: 'Continue >',
                 onPressed: controller.canContinue() ? controller.nextPage : null,
                 enabled: controller.canContinue(),
               )),
-          SizedBox(height: 32.h),
+          SizedBox(height: 21.h),
           Text(
             'Powered by The Reflectly Method.',
             style: AppFonts.poppinsRegular(
@@ -318,7 +315,7 @@ class AgeRangePage extends StatelessWidget {
               color: const Color(0xFF999999),
             ),
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 13.h),
         ],
       ),
     );
@@ -333,48 +330,71 @@ class LifeSituationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-          SizedBox(height: 20.h),
-          Text(
-            'Which best describes your current life situation?',
-            style: AppFonts.poppinsSemiBold(
-              fontSize: 18.sp,
-              color: const Color(0xFF2D2D2D),
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(height: 20.h),
+                Text(
+                  'Which best describes your current life situation?',
+                  style: AppFonts.poppinsSemiBold(
+                    fontSize: 18.sp,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 32.h),
+                Column(
+                  children: controller.lifeSituationOptions.map((option) {
+                    return Obx(() {
+                      final isSelected = controller.selectedLifeSituation.value == option;
+                      return _OptionButton(
+                        text: option,
+                        isSelected: isSelected,
+                        onTap: () async {
+                          if (option == 'Other') {
+                            final customValue = await showOtherOptionDialog(
+                              context: context,
+                              title: 'Which best describes your current life situation?',
+                              initialValue: controller.customLifeSituation.value,
+                            );
+                            controller.setCustomLifeSituation(customValue);
+                          } else {
+                            controller.selectLifeSituation(option);
+                          }
+                        },
+                      );
+                    });
+                  }).toList(),
+                ),
+                const Spacer(),
+                Obx(() => CustomButton(
+                      label: 'Continue >',
+                      onPressed: controller.canContinue() ? controller.nextPage : null,
+                      enabled: controller.canContinue(),
+                    )),
+                SizedBox(height: 25.h),
+                Text(
+                  'Powered by The Reflectly Method.',
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 12.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
-            textAlign: TextAlign.center,
           ),
-          SizedBox(height: 32.h),
-          Column(
-            children: controller.lifeSituationOptions.map((option) {
-              return Obx(() {
-                final isSelected = controller.selectedLifeSituation.value == option;
-                return _OptionButton(
-                  text: option,
-                  isSelected: isSelected,
-                  onTap: () => controller.selectLifeSituation(option),
-                );
-              });
-            }).toList(),
-          ),
-          Spacer(),
-          Obx(() => CustomButton(
-                label: 'Continue',
-                onPressed: controller.canContinue() ? controller.nextPage : null,
-                enabled: controller.canContinue(),
-              )),
-          SizedBox(height: 32.h),
-          Text(
-            'Powered by The Reflectly Method.',
-            style: AppFonts.poppinsRegular(
-              fontSize: 12.sp,
-              color: const Color(0xFF999999),
-            ),
-          ),
-          SizedBox(height: 10.h),
-        ],
+        ),
       ),
     );
   }
@@ -388,48 +408,71 @@ class LifeStagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-          SizedBox(height: 20.h),
-          Text(
-            'Which best describes where you are in life right now?',
-            style: AppFonts.poppinsSemiBold(
-              fontSize: 18.sp,
-              color: const Color(0xFF2D2D2D),
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(height: 20.h),
+                Text(
+                  'Which best describes where you are in life right now?',
+                  style: AppFonts.poppinsSemiBold(
+                    fontSize: 18.sp,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 32.h),
+                Column(
+                  children: controller.lifeStageOptions.map((option) {
+                    return Obx(() {
+                      final isSelected = controller.selectedLifeStage.value == option;
+                      return _OptionButton(
+                        text: option,
+                        isSelected: isSelected,
+                        onTap: () async {
+                          if (option == 'Other') {
+                            final customValue = await showOtherOptionDialog(
+                              context: context,
+                              title: 'Which best describes where you are in life right now?',
+                              initialValue: controller.customLifeStage.value,
+                            );
+                            controller.setCustomLifeStage(customValue);
+                          } else {
+                            controller.selectLifeStage(option);
+                          }
+                        },
+                      );
+                    });
+                  }).toList(),
+                ),
+                const Spacer(),
+                Obx(() => CustomButton(
+                      label: 'Continue >',
+                      onPressed: controller.canContinue() ? controller.nextPage : null,
+                      enabled: controller.canContinue(),
+                    )),
+                SizedBox(height: 25.h),
+                Text(
+                  'Powered by The Reflectly Method.',
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 12.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
-            textAlign: TextAlign.center,
           ),
-          SizedBox(height: 32.h),
-          Column(
-            children: controller.lifeStageOptions.map((option) {
-              return Obx(() {
-                final isSelected = controller.selectedLifeStage.value == option;
-                return _OptionButton(
-                  text: option,
-                  isSelected: isSelected,
-                  onTap: () => controller.selectLifeStage(option),
-                );
-              });
-            }).toList(),
-          ),
-          Spacer(),
-          Obx(() => CustomButton(
-                label: 'Continue',
-                onPressed: controller.canContinue() ? controller.nextPage : null,
-                enabled: controller.canContinue(),
-              )),
-          SizedBox(height: 32.h),
-          Text(
-            'Powered by The Reflectly Method.',
-            style: AppFonts.poppinsRegular(
-              fontSize: 12.sp,
-              color: const Color(0xFF999999),
-            ),
-          ),
-          SizedBox(height: 10.h),
-        ],
+        ),
       ),
     );
   }
@@ -443,56 +486,79 @@ class LifeFeelingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-         // SizedBox(height: 20.h),
-          Text(
-            "A space to explore",
-            style: AppFonts.poppinsRegular(
-              fontSize: 14.sp,
-              color: AppColors.blackColor,
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(height: 20.h),
+                Text(
+                  "A space to explore",
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                SizedBox(height: 29.h),
+                Text(
+                  'Overall, your life feels mostly...',
+                  style: AppFonts.poppinsSemiBold(
+                    fontSize: 18.sp,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 32.h),
+                Column(
+                  children: controller.lifeFeelingOptions.map((option) {
+                    return Obx(() {
+                      final isSelected = controller.selectedLifeFeeling.value == option;
+                      return _OptionButton(
+                        text: option,
+                        isSelected: isSelected,
+                        onTap: () async {
+                          if (option == 'Other') {
+                            final customValue = await showOtherOptionDialog(
+                              context: context,
+                              title: 'How would you describe the pace or mood of your life right now?',
+                              initialValue: controller.customLifeFeeling.value,
+                            );
+                            controller.setCustomLifeFeeling(customValue);
+                          } else {
+                            controller.selectLifeFeeling(option);
+                          }
+                        },
+                      );
+                    });
+                  }).toList(),
+                ),
+                const Spacer(),
+                Obx(() => CustomButton(
+                      label: 'Continue >',
+                      onPressed: controller.canContinue() ? controller.nextPage : null,
+                      enabled: controller.canContinue(),
+                    )),
+                SizedBox(height: 25.h),
+                Text(
+                  'Powered by The Reflectly Method.',
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 12.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
           ),
-          SizedBox(height: 29.h),
-          Text(
-            'Overall, your life feels mostly...',
-            style: AppFonts.poppinsSemiBold(
-              fontSize: 18.sp,
-              color: const Color(0xFF2D2D2D),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 32.h),
-          Column(
-            children: controller.lifeFeelingOptions.map((option) {
-              return Obx(() {
-                final isSelected = controller.selectedLifeFeeling.value == option;
-                return _OptionButton(
-                  text: option,
-                  isSelected: isSelected,
-                  onTap: () => controller.selectLifeFeeling(option),
-                );
-              });
-            }).toList(),
-          ),
-          Spacer(),
-          Obx(() => CustomButton(
-                label: 'Continue',
-                onPressed: controller.canContinue() ? controller.nextPage : null,
-                enabled: controller.canContinue(),
-              )),
-          SizedBox(height: 32.h),
-          Text(
-            'Powered by The Reflectly Method.',
-            style: AppFonts.poppinsRegular(
-              fontSize: 12.sp,
-              color: const Color(0xFF999999),
-            ),
-          ),
-          SizedBox(height: 10.h),
-        ],
+        ),
       ),
     );
   }
@@ -506,56 +572,79 @@ class FaithPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-          //SizedBox(height: 10.h),
-          Text(
-            "An idea to sit with",
-            style: AppFonts.poppinsRegular(
-              fontSize: 14.sp,
-              color: AppColors.blackColor,
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            'Does faith, spirituality, or belief play a role in your life?',
-            style: AppFonts.poppinsSemiBold(
-              fontSize: 16.sp,
-              color: const Color(0xFF2D2D2D),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 8.h),
-          Column(
-            children: controller.faithOptions.map((option) {
-              return Obx(() {
-                final isSelected = controller.selectedFaith.value == option;
-                return _OptionButton(
-                  text: option,
-                  isSelected: isSelected,
-                  onTap: () => controller.selectFaith(option),
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(height: 20.h),
+                Text(
+                  "An idea to sit with",
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'Does faith, spirituality, or belief play a role in your life?',
+                  style: AppFonts.poppinsSemiBold(
+                    fontSize: 16.sp,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 8.h),
+                Column(
+                  children: controller.faithOptions.map((option) {
+                    return Obx(() {
+                      final isSelected = controller.selectedFaith.value == option;
+                      return _OptionButton(
+                        text: option,
+                        isSelected: isSelected,
+                        onTap: () async {
+                          if (option == 'Other') {
+                            final customValue = await showOtherOptionDialog(
+                              context: context,
+                        title: 'Do you hold a particular faith or spiritual path?',
+                        initialValue: controller.customFaith.value,
+                      );
+                      controller.setCustomFaith(customValue);
+                    } else {
+                      controller.selectFaith(option);
+                    }
+                  },
                 );
               });
             }).toList(),
           ),
-          Spacer(),
+          const Spacer(),
           Obx(() => CustomButton(
-                label: 'Continue',
+                label: 'Continue >',
                 onPressed: controller.canContinue() ? controller.nextPage : null,
                 enabled: controller.canContinue(),
               )),
-         SizedBox(height: 20.h),
+          SizedBox(height: 25.h),
           Text(
             'Powered by The Reflectly Method.',
             style: AppFonts.poppinsRegular(
-              fontSize: 10.sp,
+              fontSize: 12.sp,
               color: const Color(0xFF999999),
             ),
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 20.h),
         ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -569,56 +658,68 @@ class InspirationSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-         // SizedBox(height: 20.h),
-          Text(
-            "An idea to sit with",
-            style: AppFonts.poppinsRegular(
-              fontSize: 14.sp,
-              color: AppColors.blackColor,
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(height: 20.h),
+                Text(
+                  "An idea to sit with",
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'What voices or sources feel most inspiring or grounding to you?',
+                  style: AppFonts.poppinsSemiBold(
+                    fontSize: 18.sp,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 32.h),
+                Column(
+                  children: controller.inspirationSourceOptions.map((option) {
+                    return Obx(() {
+                      final isSelected = controller.selectedInspirationSource.value == option;
+                      return _OptionButton(
+                        text: option,
+                        isSelected: isSelected,
+                        onTap: () => controller.selectInspirationSource(option),
+                      );
+                    });
+                  }).toList(),
+                ),
+                const Spacer(),
+                Obx(() => CustomButton(
+                      label: 'Continue >',
+                      onPressed: controller.canContinue() ? controller.nextPage : null,
+                      enabled: controller.canContinue(),
+                    )),
+                SizedBox(height: 25.h),
+                Text(
+                  'Powered by The Reflectly Method.',
+                  style: AppFonts.poppinsRegular(
+                    fontSize: 12.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
           ),
-          SizedBox(height: 10.h),
-          Text(
-            'What voices or sources feel most inspiring or grounding to you?',
-            style: AppFonts.poppinsSemiBold(
-              fontSize: 18.sp,
-              color: const Color(0xFF2D2D2D),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 32.h),
-          Column(
-            children: controller.inspirationSourceOptions.map((option) {
-              return Obx(() {
-                final isSelected = controller.selectedInspirationSource.value == option;
-                return _OptionButton(
-                  text: option,
-                  isSelected: isSelected,
-                  onTap: () => controller.selectInspirationSource(option),
-                );
-              });
-            }).toList(),
-          ),
-          Spacer(),
-          Obx(() => CustomButton(
-                label: 'Continue',
-                onPressed: controller.canContinue() ? controller.nextPage : null,
-                enabled: controller.canContinue(),
-              )),
-          SizedBox(height: 32.h),
-          Text(
-            'Powered by The Reflectly Method.',
-            style: AppFonts.poppinsRegular(
-              fontSize: 12.sp,
-              color: const Color(0xFF999999),
-            ),
-          ),
-          SizedBox(height: 10.h),
-        ],
+        ),
       ),
     );
   }
@@ -632,20 +733,20 @@ class AttentionAreaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height - 
-                       MediaQuery.of(context).padding.top - 
-                       MediaQuery.of(context).padding.bottom - 
-                       100.h, // Subtract header height
-          ),
-          child: IntrinsicHeight(
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - 
+                      MediaQuery.of(context).padding.top - 
+                      MediaQuery.of(context).padding.bottom - 
+                      100.h,
+        ),
+        child: IntrinsicHeight(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
-               // SizedBox(height: 20.h),
+                SizedBox(height: 20.h),
                 Text(
                   "An idea to sit with",
                   style: AppFonts.poppinsRegular(
@@ -670,12 +771,23 @@ class AttentionAreaPage extends StatelessWidget {
                       return _OptionButton(
                         text: option,
                         isSelected: isSelected,
-                        onTap: () => controller.selectAttentionArea(option),
+                        onTap: () async {
+                          if (option == 'Other') {
+                            final customValue = await showOtherOptionDialog(
+                              context: context,
+                              title: 'What would you like to give attention to today?',
+                              initialValue: controller.customAttentionArea.value,
+                            );
+                            controller.setCustomAttentionArea(customValue);
+                          } else {
+                            controller.selectAttentionArea(option);
+                          }
+                        },
                       );
                     });
                   }).toList(),
                 ),
-                Spacer(),
+                const Spacer(),
                 Obx(() => CustomButton(
                       label: 'Finish',
                       onPressed: controller.canContinue() 
@@ -685,7 +797,7 @@ class AttentionAreaPage extends StatelessWidget {
                           : null,
                       enabled: controller.canContinue(),
                     )),
-                SizedBox(height: 22.h),
+                SizedBox(height: 25.h),
                 Text(
                   'Powered by The Reflectly Method.',
                   style: AppFonts.poppinsRegular(
@@ -693,7 +805,7 @@ class AttentionAreaPage extends StatelessWidget {
                     color: const Color(0xFF999999),
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 20.h),
               ],
             ),
           ),

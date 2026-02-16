@@ -23,10 +23,10 @@ class CustomBackButton extends StatelessWidget {
     this.onPressed,
     this.color = AppColors.whiteColor,
     this.backgroundColor = const Color(0x1AFFFFFF), // 10% white
-    this.size = 24,
-    this.width = 40,
-    this.height = 40,
-    this.borderRadius = 20,
+    this.size = 28,
+    this.width = 35,
+    this.height = 35,
+    this.borderRadius = 10,
   }) : super(key: key);
 
   @override

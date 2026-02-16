@@ -44,7 +44,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Please enter your current password',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
       return false;
     }
@@ -53,7 +53,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Please enter a new password',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
       return false;
     }
@@ -62,7 +62,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Password must be at least 6 characters',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
       return false;
     }
@@ -71,7 +71,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Please confirm your password',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
       return false;
     }
@@ -80,7 +80,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Passwords do not match',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
       return false;
     }
@@ -101,7 +101,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Success',
         'Password changed successfully',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
 
       // Clear fields
@@ -115,7 +115,7 @@ class ChangePasswordController extends GetxController {
       Get.snackbar(
         'Error',
         'Failed to change password: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
     } finally {
       isLoading.value = false;

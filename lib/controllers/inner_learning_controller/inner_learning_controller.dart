@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/learning_model.dart';
 
-class InnerLearningController extends GetxController {
+class InnerLearningController extends GetxController with GetSingleTickerProviderStateMixin {
   // Observable list of past learnings
   final RxList<LearningModel> pastLearnings = <LearningModel>[].obs;
   
@@ -18,10 +18,29 @@ class InnerLearningController extends GetxController {
   
   // Loading state
   final RxBool isLoading = false.obs;
+  
+  // Animation controller for see more toggle
+  late AnimationController seeMoreAnimationController;
 
   @override
   void onInit() {
     super.onInit();
+    
+    // Initialize animation controller
+    seeMoreAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 450),
+    );
+    
+    // Set initial value to match state
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (showAllLearnings.value) {
+        seeMoreAnimationController.value = 1.0;
+      } else {
+        seeMoreAnimationController.value = 0.0;
+      }
+    });
+    
     _loadPastLearnings();
     
     // Listen to text controller changes
@@ -82,6 +101,13 @@ class InnerLearningController extends GetxController {
   /// Toggle show more/less
   void toggleShowMore() {
     showAllLearnings.value = !showAllLearnings.value;
+    
+    // Animate the see more icon
+    if (showAllLearnings.value) {
+      seeMoreAnimationController.forward(); // Expand animation
+    } else {
+      seeMoreAnimationController.reverse(); // Collapse animation
+    }
   }
 
   /// Handle suggestion tap
@@ -111,6 +137,7 @@ class InnerLearningController extends GetxController {
 
   @override
   void onClose() {
+    seeMoreAnimationController.dispose();
     textController.dispose();
     super.onClose();
   }

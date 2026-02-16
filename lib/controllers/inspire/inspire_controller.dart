@@ -124,13 +124,21 @@ class InspireController extends GetxController {
   /// Open video player
   void playVideo(VideoItem video) {
     // TODO: Implement video player navigation
-    Get.snackbar('Video', 'Playing: ${video.title}');
+    Get.snackbar(
+      'Video', 
+      'Playing: ${video.title}',
+      snackPosition: SnackPosition.TOP,
+    );
   }
   
   /// Open inspiration detail
   void openInspirationDetail(InspirationItem inspiration) {
     // TODO: Implement inspiration detail navigation
-    Get.snackbar('Inspiration', 'Opening: ${inspiration.title}');
+    Get.snackbar(
+      'Inspiration', 
+      'Opening: ${inspiration.title}',
+      snackPosition: SnackPosition.TOP,
+    );
   }
 }
 

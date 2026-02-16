@@ -6,7 +6,6 @@ import '../../controllers/reflect_controller/reflect_controller.dart';
 import '../../controllers/custom_nav_bar_widgets/custom_nav_bar_widgets.dart';
 import '../../utils/app_fonts.dart';
 import '../../widgets/custom_assets.dart';
-import '../../widgets/custom_nav_bar_widgets.dart';
 
 /// Reflect Screen - AI Chat Interface for Reflection
 class ReflectScreen extends StatelessWidget {
@@ -24,36 +23,44 @@ class ReflectScreen extends StatelessWidget {
       }
     });
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(CustomAssets.backgroundimage),
-            fit: BoxFit.cover,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          controller.goBack(context);
+        }
+      },
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(CustomAssets.backgroundimage),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // App Bar
-              _buildAppBar(context, controller),
-              
-              // Subtitle
-              _buildSubtitle(),
-              
-              // Chat Messages
-              Expanded(
-                child: _buildMessagesList(controller),
-              ),
-              
-              // Input Area
-              _buildInputArea(controller,context),
-              
-              SizedBox(height: 16.h),
-              
-              // Navigation Bar
-            //  CustomNavBar(controller: navBarController),
-            ],
+          child: SafeArea(
+            child: Column(
+              children: [
+                // App Bar
+                _buildAppBar(context, controller),
+                
+                // Subtitle
+                _buildSubtitle(),
+                
+                // Chat Messages
+                Expanded(
+                  child: _buildMessagesList(controller),
+                ),
+                
+                // Input Area
+                _buildInputArea(controller,context),
+                
+                SizedBox(height: 16.h),
+                
+                // Navigation Bar
+              //  CustomNavBar(controller: navBarController),
+              ],
+            ),
           ),
         ),
       ),

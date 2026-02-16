@@ -53,7 +53,7 @@ class ReflectBlobController extends GetxController {
     Get.snackbar(
       'Starting Reflection',
       'Opening reflection session...',
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
       duration: const Duration(seconds: 2),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../controllers/inner_learning_controller/inner_learning_controller.dart';
 import '../../controllers/custom_nav_bar_widgets/custom_nav_bar_widgets.dart';
 import '../../utils/app_fonts.dart';
@@ -171,31 +172,53 @@ class InnerLearningScreen extends StatelessWidget {
           SizedBox(height: 8.h),
 
           // See More/Less button
-          Obx(() => GestureDetector(
-                onTap: controller.toggleShowMore,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      controller.showAllLearnings.value ? 'See Less' : 'See More',
-                      style: AppFonts.poppinsRegular(
-                        fontSize: 12.sp,
-                        color: Colors.black,
-                        decoration: TextDecoration.underline,
-                        height: 1.20,
-                      ),
-                    ),
-                    SizedBox(width: 4.w),
-                    Icon(
-                      controller.showAllLearnings.value
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                      size: 16.sp,
+          Obx(() {
+            return GestureDetector(
+              onTap: controller.toggleShowMore,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    controller.showAllLearnings.value ? 'See Less' : 'See More',
+                    style: AppFonts.poppinsRegular(
+                      fontSize: 12.sp,
                       color: Colors.black,
+                      decoration: TextDecoration.underline,
+                      height: 1.20,
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                  SizedBox(width: 4.w),
+                  SizedBox(
+                    width: 22.w,
+                    height: 22.h,
+                    child: AnimatedBuilder(
+                      animation: controller.seeMoreAnimationController,
+                      builder: (context, child) {
+                        return Lottie.asset(
+                          'assets/lottie/see_more_toggle.json',
+                          controller: controller.seeMoreAnimationController,
+                          fit: BoxFit.contain,
+                          // Prevent rebuild issues
+                          frameRate: FrameRate.max,
+                          // Handle errors gracefully
+                          errorBuilder: (context, error, stackTrace) {
+                            // Fallback to simple icon if Lottie fails to load
+                            return Icon(
+                              controller.showAllLearnings.value
+                                  ? Icons.keyboard_arrow_up
+                                  : Icons.keyboard_arrow_down,
+                              size: 16.sp,
+                              color: Colors.black,
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );

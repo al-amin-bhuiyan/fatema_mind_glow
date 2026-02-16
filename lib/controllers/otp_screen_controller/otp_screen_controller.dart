@@ -91,7 +91,7 @@ class OtpScreenController extends GetxController {
       Get.snackbar(
         'Error',
         'Please enter the complete 6-digit code',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -107,7 +107,7 @@ class OtpScreenController extends GetxController {
       Get.snackbar(
         'Success',
         'OTP verified successfully!',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
@@ -119,7 +119,7 @@ class OtpScreenController extends GetxController {
       Get.snackbar(
         'Error',
         'Invalid OTP code. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -139,7 +139,7 @@ class OtpScreenController extends GetxController {
       Get.snackbar(
         'Success',
         'OTP code has been resent to ${userEmail.value}',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
@@ -151,7 +151,7 @@ class OtpScreenController extends GetxController {
       Get.snackbar(
         'Error',
         'Failed to resend OTP code. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -230,7 +230,7 @@ class OtpScreenController extends GetxController {
       Get.snackbar(
         'Error',
         'Failed to paste from clipboard',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -257,7 +257,7 @@ class OtpScreenController extends GetxController {
         style: ToastificationStyle.flat,
         title: const Text('Invalid OTP'),
         description: const Text('OTP should not be more than 6 digits'),
-        alignment: Alignment.bottomCenter,
+        alignment: Alignment.topCenter,
         autoCloseDuration: const Duration(seconds: 2),
         backgroundColor: Colors.orange,
         foregroundColor: Colors.white,

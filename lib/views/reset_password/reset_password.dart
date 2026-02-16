@@ -151,7 +151,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.47),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.52),
 
                     // Powered by text
                     Text(
@@ -162,7 +162,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 24.h),
+                   // SizedBox(height: 24.h),
                   ],
                 ),
               ),

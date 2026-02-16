@@ -158,7 +158,7 @@ class OtpScreen extends StatelessWidget {
                       ],
                     ),
 
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.44),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.42),
 
                     // Powered by text
                     Text(
@@ -169,7 +169,7 @@ class OtpScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 24.h),
+                //    SizedBox(height: 24.h),
                   ],
                 ),
               ),

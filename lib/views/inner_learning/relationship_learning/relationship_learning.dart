@@ -89,7 +89,7 @@ class RelationshipLearningScreen extends StatelessWidget {
                 'Relationship Learning',
                 textAlign: TextAlign.center,
                 style: AppFonts.poppinsSemiBold(
-                  fontSize: 17.sp,
+                  fontSize: 16.5.sp,
                   color: Colors.black,
                   height: 1.11,
                 ),

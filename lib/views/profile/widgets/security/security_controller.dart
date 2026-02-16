@@ -49,7 +49,7 @@ class SecurityController extends GetxController {
       Get.snackbar(
         'Success',
         'Account deleted successfully',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: const Color(0xFFED6B61),
         colorText: Colors.white,
       );
@@ -62,7 +62,7 @@ class SecurityController extends GetxController {
       Get.snackbar(
         'Error',
         'Failed to delete account: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

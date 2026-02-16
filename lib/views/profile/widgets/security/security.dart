@@ -62,8 +62,8 @@ class SecurityScreen extends StatelessWidget {
           GestureDetector(
             onTap: () => controller.goBack(context),
             child: Container(
-              width: 30.w,
-              height: 30.h,
+              width: 35.w,
+              height: 35.h,
               clipBehavior: Clip.antiAlias,
               decoration: ShapeDecoration(
                 color: Colors.black.withValues(alpha: 0.10),
@@ -73,7 +73,7 @@ class SecurityScreen extends StatelessWidget {
               ),
               child: Icon(
                 Icons.arrow_back,
-                size: 24.sp,
+                size: 28.sp,
                 color: Colors.black,
               ),
             ),

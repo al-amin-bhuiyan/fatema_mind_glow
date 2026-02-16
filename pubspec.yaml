@@ -32,6 +32,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   http: ^1.2.0
   toastification: ^3.0.3
+  lottie: ^3.3.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -57,3 +58,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/lottie/
