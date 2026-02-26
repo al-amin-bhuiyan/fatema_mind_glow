@@ -13,7 +13,8 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Schedule navigation after the first frame is rendered
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 3), () {
+      // Minimal delay for smooth transition (200ms)
+      Future.delayed(const Duration(seconds: 2), () {
         if (context.mounted) {
           context.go(AppPath.onboarding);
         }

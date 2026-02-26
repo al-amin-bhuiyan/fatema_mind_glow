@@ -19,8 +19,8 @@ class SplashController extends GetxController {
     
     _isNavigating.value = true;
     
-    // Wait for 3 seconds
-    await Future.delayed(const Duration(seconds: 3));
+    // Minimal delay to show splash (200ms for smooth transition)
+    await Future.delayed(const Duration(milliseconds: 200));
     
     // Navigate to onboarding screen
     if (Get.context != null) {

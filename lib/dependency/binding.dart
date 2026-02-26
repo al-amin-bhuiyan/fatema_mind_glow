@@ -17,11 +17,19 @@ import '../views/profile/widgets/subscription/subscription_controller.dart';
 import '../controllers/custom_nav_bar_widgets/custom_nav_bar_widgets.dart';
 
 class Dependency {
-  static void init() {
+  /// Initialize only critical controllers needed for app startup
+  /// This runs synchronously during app initialization for fast startup
+  static void initCritical() {
+    // Only initialize SplashController for immediate startup
+    // Even CustomNavBarController is lazy-loaded when needed
     Get.put<SplashController>(SplashController(), permanent: true);
-    
-    // Put CustomNavBarController as permanent (shared across screens)
-    Get.put<CustomNavBarController>(CustomNavBarController(), permanent: true);
+  }
+  
+  /// Initialize non-critical controllers after app starts
+  /// This runs asynchronously to avoid blocking app startup
+  static void initDeferred() {
+    // Lazy load CustomNavBarController when needed
+    Get.lazyPut<CustomNavBarController>(() => CustomNavBarController(), fenix: true);
     
     // Lazy load LoginController when needed
     Get.lazyPut<LoginController>(() => LoginController());
@@ -58,5 +66,12 @@ class Dependency {
     
     // Lazy load ProfileController when needed
     Get.lazyPut<ProfileController>(() => ProfileController());
+  }
+  
+  /// Legacy method for backward compatibility - deprecated
+  @Deprecated('Use initCritical() and initDeferred() instead')
+  static void init() {
+    initCritical();
+    initDeferred();
   }
 }

@@ -1,7 +1,6 @@
-import 'package:device_preview/device_preview.dart';
+// import 'package:device_preview/device_preview.dart'; // Only enable for development
 import 'package:fatema_mind_glow/routes/route_path.dart';
 import 'package:fatema_mind_glow/utils/page_transitions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -9,16 +8,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'dependency/binding.dart';
 
-void main(){
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
+  // Don't call WidgetsFlutterBinding.ensureInitialized() unless absolutely needed
+  // It's called automatically by runApp()
   
-  Dependency.init();
+  // Initialize ONLY the splash controller (1 controller = fastest startup)
+  Dependency.initCritical();
   
+  // Start the app immediately
   runApp(const MyApp());
+  
+  // Load everything else asynchronously after first frame
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Dependency.initDeferred();
+  });
   
   //  runApp(
   //    DevicePreview(
-  //      enabled: true, // <-- TURN ON DEVICE PREVIEW
+  //      enabled: true, // <-- TURN ON DEVICE PREVIEW ONLY IN DEVELOPMENT
   //      builder: (context) => const MyApp(),
   //     ),
   //  );
@@ -41,14 +48,13 @@ class MyApp extends StatelessWidget {
           routerDelegate: RoutePath.router.routerDelegate,
           routeInformationProvider: RoutePath.router.routeInformationProvider,
 
-          // REQUIRED BY DevicePreview - Chain both builders
-          builder: (context, widget) {
-            // First apply DevicePreview's builder
-            widget = DevicePreview.appBuilder(context, widget);
-            // Then apply ScreenUtil's builder if needed
-            return widget;
-          },
-          locale: DevicePreview.locale(context),
+          // Remove DevicePreview builder for faster production startup
+          // Uncomment the builder below only when using DevicePreview in development
+          // builder: (context, widget) {
+          //   widget = DevicePreview.appBuilder(context, widget);
+          //   return widget;
+          // },
+          // locale: DevicePreview.locale(context),
         );
       },
     );
