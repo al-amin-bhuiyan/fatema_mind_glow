@@ -30,7 +30,7 @@ import '../views/home/home_screen.dart';
 
 class RoutePath {
   static final GoRouter router = GoRouter(
-    initialLocation: AppPath.splash,
+    initialLocation: AppPath.onboarding,
     routes: [
       GoRoute(
         path: AppPath.splash,

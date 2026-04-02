@@ -13,7 +13,7 @@ void main() {
   // It's called automatically by runApp()
   
   // Initialize ONLY the splash controller (1 controller = fastest startup)
-  Dependency.initCritical();
+  //Dependency.initCritical();
   
   // Start the app immediately
   runApp(const MyApp());

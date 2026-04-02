@@ -34,7 +34,6 @@ dependencies:
   toastification: ^3.0.3
   lottie: ^3.3.2
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
@@ -45,13 +44,36 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
-  # Remove flutter_native_splash from dev_dependencies
+  flutter_native_splash: ^2.4.4
+  image: ^4.5.4
 
 flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/images/splash_logo.png"
   remove_alpha_ios: true
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  # Fallback color: if a platform/version can't use the background image,
+  # this solid color will be used instead.
+  color: "#FFFDF8"
+
+  background_image: "assets/images/splash_background.png"
+  image: "assets/images/splash_logo_2.png"
+
+  android_12:
+    # Android 12 uses the system splash API. It can't render an arbitrary
+    # full-screen background image reliably, so we use the fallback color.
+    color: "#FFFDF8"
+    image: "assets/images/splash_logo_2.png"
+
+  fullscreen: true
+  android_gravity: center
+  ios_content_mode: center
 
 flutter:
   uses-material-design: true
